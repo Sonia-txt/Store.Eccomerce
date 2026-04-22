@@ -1,25 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Api\\Store.Proyect.Api.csproj": {}
+    "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Api\\Store.Proyect.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Api\\Store.Proyect.Api.csproj": {
+    "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Api\\Store.Proyect.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Api\\Store.Proyect.Api.csproj",
+        "projectUniqueName": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Api\\Store.Proyect.Api.csproj",
         "projectName": "Store.Proyect.Api",
-        "projectPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Api\\Store.Proyect.Api.csproj",
-        "packagesPath": "C:\\Users\\marib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Api\\obj\\",
+        "projectPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Api\\Store.Proyect.Api.csproj",
+        "packagesPath": "C:\\Users\\sonia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\marib\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
+          "C:\\Users\\sonia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -28,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net10.0": {
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Core\\Store.Proyect.Core.csproj": {
-                "projectPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Core\\Store.Proyect.Core.csproj"
+              "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Core\\Store.Proyect.Core.csproj": {
+                "projectPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Core\\Store.Proyect.Core.csproj"
               }
             }
           }
@@ -51,7 +48,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -93,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
@@ -511,22 +508,20 @@
         }
       }
     },
-    "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Core\\Store.Proyect.Core.csproj": {
+    "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Core\\Store.Proyect.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Core\\Store.Proyect.Core.csproj",
+        "projectUniqueName": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Core\\Store.Proyect.Core.csproj",
         "projectName": "Store.Proyect.Core",
-        "projectPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Core\\Store.Proyect.Core.csproj",
-        "packagesPath": "C:\\Users\\marib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Core\\obj\\",
+        "projectPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Core\\Store.Proyect.Core.csproj",
+        "packagesPath": "C:\\Users\\sonia\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\marib\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
+          "C:\\Users\\sonia\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -535,7 +530,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -554,7 +548,7 @@
           "auditLevel": "low",
           "auditMode": "all"
         },
-        "SdkAnalysisLevel": "10.0.100"
+        "SdkAnalysisLevel": "10.0.200"
       },
       "frameworks": {
         "net10.0": {
@@ -589,7 +583,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.CSharp": "(,4.7.32767]",
             "Microsoft.VisualBasic": "(,10.4.32767]",
