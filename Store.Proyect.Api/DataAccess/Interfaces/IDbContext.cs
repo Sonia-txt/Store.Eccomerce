@@ -1,6 +1,9 @@
 ﻿namespace Store.Proyect.Api.DataAccess.Interfaces;
+using System.Data.Common;
 
-public class IDbContext
+public interface IDbContext
 {
-   
+    DbConnection Connection { get; }
 }
+
+
