@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "LI7YODgCWvw=",
+  "dgSpecHash": "acmnsl3BbgA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.Api\\Store.Proyect.Api.csproj",
+  "projectFilePath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.Api\\Store.Proyect.Api.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\sonia\\.nuget\\packages\\dapper\\2.1.72\\dapper.2.1.72.nupkg.sha512",
-    "C:\\Users\\sonia\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
-    "C:\\Users\\sonia\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.2\\microsoft.aspnetcore.openapi.10.0.2.nupkg.sha512",
-    "C:\\Users\\sonia\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
-    "C:\\Users\\sonia\\.nuget\\packages\\mysqlconnector\\2.5.0\\mysqlconnector.2.5.0.nupkg.sha512"
+    "C:\\Users\\marib\\.nuget\\packages\\dapper\\2.1.72\\dapper.2.1.72.nupkg.sha512",
+    "C:\\Users\\marib\\.nuget\\packages\\dapper.contrib\\2.0.78\\dapper.contrib.2.0.78.nupkg.sha512",
+    "C:\\Users\\marib\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.2\\microsoft.aspnetcore.openapi.10.0.2.nupkg.sha512",
+    "C:\\Users\\marib\\.nuget\\packages\\microsoft.openapi\\2.0.0\\microsoft.openapi.2.0.0.nupkg.sha512",
+    "C:\\Users\\marib\\.nuget\\packages\\mysqlconnector\\2.5.0\\mysqlconnector.2.5.0.nupkg.sha512"
   ],
   "logs": []
 }
