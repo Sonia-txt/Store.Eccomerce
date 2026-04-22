@@ -3,7 +3,7 @@ using Store.Proyect.Api.Repositories.Interfaces;
 using Store.Proyect.Core.Entities;
 using Store.Proyect.Core.Http;
 
-namespace Store.Api.Controllers;
+namespace Store.Proyect.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
