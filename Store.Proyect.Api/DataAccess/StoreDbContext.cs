@@ -5,7 +5,7 @@ using Store.Proyect.Api.DataAccess.Interfaces;
 namespace Store.Proyect.Api.DataAccess;
 
 
-public class DbContext : IDbContext
+public class StoreDbContext : IDbContext
 {
     
     private readonly string _connectionString = 

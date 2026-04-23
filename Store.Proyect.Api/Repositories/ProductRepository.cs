@@ -6,8 +6,7 @@ using Store.Proyect.Api.Repositories.Interfaces;
 
 namespace Store.Proyect.Api.Repositories;
 
-// 1. Quitamos "partial" (no lo necesitas a menos que la clase esté en varios archivos)
-// 2. Asegúrate de que IProductRepository esté en el namespace del using de arriba
+
 public class ProductRepository : IProductRepository
 {
     private readonly IDbContext _dbContext;
