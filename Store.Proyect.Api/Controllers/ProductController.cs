@@ -20,65 +20,41 @@ public class ProductController : ControllerBase
     public async Task<ActionResult<Response<List<Product>>>> GetAll()
     {
         var products = await _productRepository.GetAllAsync();
-        var response = new Response<List<Product>>
-        {
-            Data = products
-        };
-        
-        return Ok(response);
+        return Ok(new Response<List<Product>> { Data = products });
     }
 
-    [HttpGet]
-    [Route("{id:int}")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<Response<Product>>> Get(int id)
     {
         var product = await _productRepository.GetById(id);
-        var response = new Response<Product>();
-        
         if (product == null)
         {
-            response.Errors.Add("PRODUCT NOT FOUND");
-            return NotFound(response);
+            var errorResponse = new Response<Product>();
+            errorResponse.Errors.Add("PRODUCT NOT FOUND");
+            return NotFound(errorResponse);
         }
 
-        response.Data = product;
-        return Ok(response);
+        return Ok(new Response<Product> { Data = product });
     }
 
     [HttpPost]
     public async Task<ActionResult<Response<Product>>> Post([FromBody] Product product)
     {
         var result = await _productRepository.SaveAsync(product);
-        var response = new Response<Product>
-        {
-            Data = result
-        };
-
-        return Created($"/api/[controller]/{result.Id}", response);
+        return CreatedAtAction(nameof(Get), new { id = result.Id }, new Response<Product> { Data = result });
     }
 
     [HttpPut]
     public async Task<ActionResult<Response<Product>>> Update([FromBody] Product product)
     {
         var result = await _productRepository.UpdateAsync(product);
-        var response = new Response<Product>
-        {
-            Data = result
-        };
-        
-        return Ok(response);
+        return Ok(new Response<Product> { Data = result });
     }
 
-    [HttpDelete]
-    [Route("{id:int}")]
+    [HttpDelete("{id:int}")]
     public async Task<ActionResult<Response<bool>>> Delete(int id)
     {
         var result = await _productRepository.DeleteAsync(id);
-        var response = new Response<bool>
-        {
-            Data = result
-        };
-        
-        return Ok(response);
+        return Ok(new Response<bool> { Data = result });
     }
 }
