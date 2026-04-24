@@ -1,6 +1,9 @@
-﻿namespace Store.Proyect.Core.Entities;
+﻿using Dapper.Contrib.Extensions; 
 
+namespace Store.Proyect.Core.Entities;
+
+[Table("categories")] 
 public class Category : EntityBase
 {
-    public string Name { get; set; } = string.Empty;
+    public string name { get; set; } = string.Empty;
 }
