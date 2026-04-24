@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema; 
 using Dapper.Contrib.Extensions;
+using Store.Proyect.Core.Entities;
 
 public class EntityBase
 {
