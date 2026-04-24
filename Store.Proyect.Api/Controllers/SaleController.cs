@@ -49,7 +49,6 @@ public class SaleController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Response<Sale>>> Post([FromBody] Sale sale)
     {
-        // En ventas, el Save suele incluir la lógica de persistir el encabezado y el detalle
         var result = await _saleRepository.SaveAsync(sale);
         var response = new Response<Sale>
         {

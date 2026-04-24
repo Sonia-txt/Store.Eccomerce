@@ -9,7 +9,7 @@ public class StoreDbContext : IDbContext
 {
     
     private readonly string _connectionString = 
-        "server=localhost;user=root;password=1234;database=StoreDB;port=3306";
+        "server=localhost;user=root;password=123456;database=StoreDB;port=3306";
     
     private MySqlConnection _connection;
     
