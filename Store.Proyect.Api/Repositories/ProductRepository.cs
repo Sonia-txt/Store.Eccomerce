@@ -7,9 +7,8 @@ using Store.Proyect.Api.Repositories.Interfaces;
 namespace Store.Proyect.Api.Repositories;
 
 
-public class ProductRepository : IProductRepository{
-
-    
+public class ProductRepository : IProductRepository
+{
     private readonly IDbContext _dbContext;
     public ProductRepository(IDbContext context) => _dbContext = context;
 

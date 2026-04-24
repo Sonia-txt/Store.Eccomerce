@@ -13,12 +13,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
-
 //builder.Services.AddSingleton<IProductCategoryRepository, InMemoryProductCategoryRepository>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();//pendiente
-builder.Services.AddScoped<IDbContext, DbContext>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+// Repositorios
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();         
+builder.Services.AddScoped<ISaleRepository, SaleRepository>();        
+builder.Services.AddScoped<ISaleDetailRepository, SaleDetailRepository>(); 
 
+
+builder.Services.AddScoped<IDbContext, Store.Proyect.Api.DataAccess.StoreDbContext>();
+builder.Services.AddScoped<IDbContext, StoreDbContext>();
+
+Dapper.DefaultTypeMap.MatchNamesWithUnderscores = true;
 var app = builder.Build();
 
 app.UseSwagger();

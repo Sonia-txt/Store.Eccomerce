@@ -1,4 +1,4 @@
-using Store.Proyect.Core.Enums; // Agrega esta línea
+using Store.Proyect.Core.Enums;
 
 namespace Store.Proyect.Core.Entities;
 
