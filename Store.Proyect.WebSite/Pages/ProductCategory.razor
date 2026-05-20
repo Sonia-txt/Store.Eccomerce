@@ -1,0 +1,109 @@
+@page "/product-category"
+@using Store.Proyect.WebSite.Dtos
+@using Store.Proyect.WebSite.Services
+@using Store.Proyect.WebSite.Services.Interfaces
+@inject IProductCategoryService ProductCategoryService
+
+<h3>Product Categories</h3>
+
+@if (categories == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in categories)
+            {
+                <tr>
+                    <td>@category.Id</td>
+                    <td>@category.Name</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditCategory(category)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteCategory(category.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(isEditing ? "Edit Category" : "Add New Category")</h3>
+
+<EditForm Model="@categoryModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText id="name" class="form-control" @bind-Value="categoryModel.Name" />
+    </div>
+
+    <button type="submit" class="btn btn-success">@(isEditing ? "Update" : "Add")</button>
+    @if (isEditing)
+    {
+        <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+    }
+</EditForm>
+
+@code {
+    private IEnumerable<CategoryDto>? categories;
+    private CategoryDto categoryModel = new();
+    private bool isEditing = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadCategories();
+    }
+
+    private async Task LoadCategories()
+    {
+        categories = await ProductCategoryService.GetAllAsync();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (isEditing)
+        {
+            await ProductCategoryService.UpdateAsync(categoryModel);
+        }
+        else
+        {
+            await ProductCategoryService.AddAsync(categoryModel);
+        }
+
+        categoryModel = new();
+        isEditing = false;
+        await LoadCategories();
+        StateHasChanged();
+    }
+
+    private void EditCategory(CategoryDto category)
+    {
+        categoryModel = new CategoryDto { Id = category.Id, Name = category.Name };
+        isEditing = true;
+    }
+
+    private void CancelEdit()
+    {
+        categoryModel = new();
+        isEditing = false;
+    }
+
+    private async Task DeleteCategory(int id)
+    {
+        await ProductCategoryService.DeleteAsync(id);
+        await LoadCategories();
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,146 @@
+@page "/sale"
+@using Store.Proyect.WebSite.Dtos
+@using Store.Proyect.WebSite.Services
+@using Store.Proyect.WebSite.Services.Interfaces
+@inject ISaleService SaleService
+@inject ICustomerService CustomerService
+
+<h3>Sales</h3>
+
+@if (sales == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Customer</th>
+                <th>Sale Date</th>
+                <th>Total Amount</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var sale in sales)
+            {
+                <tr>
+                    <td>@sale.Id</td>
+                    <td>@(customers.FirstOrDefault(c => c.Id == sale.CustomerId)?.Name ?? "N/A")</td>
+                    <td>@sale.SaleDate.ToShortDateString()</td>
+                    <td>@sale.TotalAmount</td>
+                    <td>@sale.Status</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditSale(sale)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteSale(sale.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(isEditing ? "Edit Sale" : "Add New Sale")</h3>
+
+<EditForm Model="@saleModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="customer">Customer:</label>
+        <InputSelect id="customer" class="form-control" @bind-Value="saleModel.CustomerId">
+            <option value="">Select a customer</option>
+            @foreach (var customer in customers)
+            {
+                <option value="@customer.Id">@customer.Name</option>
+            }
+        </InputSelect>
+    </div>
+    
+    <div class="form-group">
+        <label for="saledate">Sale Date:</label>
+        <InputDate id="saledate" class="form-control" @bind-Value="saleModel.SaleDate" />
+    </div>
+    
+    <div class="form-group">
+        <label for="totalamount">Total Amount:</label>
+        <InputNumber id="totalamount" class="form-control" @bind-Value="saleModel.TotalAmount" />
+    </div>
+    
+    <div class="form-group">
+        <label for="status">Status:</label>
+        <InputNumber id="status" class="form-control" @bind-Value="saleModel.Status" />
+    </div>
+
+    <button type="submit" class="btn btn-success">@(isEditing ? "Update" : "Add")</button>
+    @if (isEditing)
+    {
+        <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+    }
+</EditForm>
+
+@code {
+    private List<SaleDto>? sales;
+    private List<CustomerDto> customers = new();
+    private SaleDto saleModel = new();
+    private bool isEditing = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        customers = await CustomerService.GetAllAsync();
+        sales = await SaleService.GetAllAsync();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (isEditing)
+        {
+            await SaleService.UpdateAsync(saleModel);
+        }
+        else
+        {
+            await SaleService.AddAsync(saleModel);
+        }
+
+        saleModel = new();
+        isEditing = false;
+        await LoadData();
+        StateHasChanged();
+    }
+
+    private void EditSale(SaleDto sale)
+    {
+        saleModel = new SaleDto 
+        { 
+            Id = sale.Id, 
+            CustomerId = sale.CustomerId,
+            SaleDate = sale.SaleDate,
+            TotalAmount = sale.TotalAmount,
+            Status = sale.Status
+        };
+        isEditing = true;
+    }
+
+    private void CancelEdit()
+    {
+        saleModel = new();
+        isEditing = false;
+    }
+
+    private async Task DeleteSale(int id)
+    {
+        await SaleService.DeleteAsync(id);
+        await LoadData();
+        StateHasChanged();
+    }
+}

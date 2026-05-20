@@ -1,0 +1,154 @@
+@page "/product"
+@using Store.Proyect.WebSite.Dtos
+@using Store.Proyect.WebSite.Services
+@using Store.Proyect.WebSite.Services.Interfaces
+@inject IProductService ProductService
+@inject IProductCategoryService ProductCategoryService
+
+<h3>Products</h3>
+
+@if (products == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Description</td>
+                    <td>@product.Price</td>
+                    <td>@product.Stock</td>
+                    <td>@(categories.FirstOrDefault(c => c.Id == product.CategoryId)?.Name ?? "N/A")</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditProduct(product)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(isEditing ? "Edit Product" : "Add New Product")</h3>
+
+<EditForm Model="@productModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText id="name" class="form-control" @bind-Value="productModel.Name" />
+    </div>
+    
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <InputText id="description" class="form-control" @bind-Value="productModel.Description" />
+    </div>
+    
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <InputNumber id="price" class="form-control" @bind-Value="productModel.Price" />
+    </div>
+    
+    <div class="form-group">
+        <label for="stock">Stock:</label>
+        <InputNumber id="stock" class="form-control" @bind-Value="productModel.Stock" />
+    </div>
+    
+    <div class="form-group">
+        <label for="category">Category:</label>
+        <InputSelect id="category" class="form-control" @bind-Value="productModel.CategoryId">
+            <option value="">Select a category</option>
+            @foreach (var category in categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </InputSelect>
+    </div>
+
+    <button type="submit" class="btn btn-success">@(isEditing ? "Update" : "Add")</button>
+    @if (isEditing)
+    {
+        <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+    }
+</EditForm>
+
+@code {
+    private List<ProductDto>? products;
+    private IEnumerable<CategoryDto> categories = new List<CategoryDto>();
+    private ProductDto productModel = new();
+    private bool isEditing = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        categories = await ProductCategoryService.GetAllAsync();
+        products = await ProductService.GetAllAsync();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (isEditing)
+        {
+            await ProductService.UpdateAsync(productModel);
+        }
+        else
+        {
+            await ProductService.AddAsync(productModel);
+        }
+
+        productModel = new();
+        isEditing = false;
+        await LoadData();
+        StateHasChanged();
+    }
+
+    private void EditProduct(ProductDto product)
+    {
+        productModel = new ProductDto 
+        { 
+            Id = product.Id, 
+            Name = product.Name,
+            Description = product.Description,
+            Price = product.Price,
+            Stock = product.Stock,
+            CategoryId = product.CategoryId
+        };
+        isEditing = true;
+    }
+
+    private void CancelEdit()
+    {
+        productModel = new();
+        isEditing = false;
+    }
+
+    private async Task DeleteProduct(int id)
+    {
+        await ProductService.DeleteAsync(id);
+        await LoadData();
+        StateHasChanged();
+    }
+}

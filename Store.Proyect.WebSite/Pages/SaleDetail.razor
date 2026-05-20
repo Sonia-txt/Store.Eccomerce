@@ -1,0 +1,163 @@
+@page "/saledetail"
+@using Store.Proyect.WebSite.Dtos
+@using Store.Proyect.WebSite.Services
+@using Store.Proyect.WebSite.Services.Interfaces
+@inject ISaleDetailService SaleDetailService
+@inject ISaleService SaleService
+@inject IProductService ProductService
+
+<h3>Sale Details</h3>
+
+@if (saleDetails == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sale ID</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Subtotal</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var detail in saleDetails)
+            {
+                <tr>
+                    <td>@detail.Id</td>
+                    <td>@detail.SaleId</td>
+                    <td>@(products.FirstOrDefault(p => p.Id == detail.ProductId)?.Name ?? "N/A")</td>
+                    <td>@detail.Quantity</td>
+                    <td>@detail.UnitPrice</td>
+                    <td>@detail.Subtotal</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditSaleDetail(detail)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteSaleDetail(detail.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(isEditing ? "Edit Sale Detail" : "Add New Sale Detail")</h3>
+
+<EditForm Model="@saleDetailModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="saleId">Sale:</label>
+        <InputSelect id="saleId" class="form-control" @bind-Value="saleDetailModel.SaleId">
+            <option value="">Select a sale</option>
+            @foreach (var sale in sales)
+            {
+                <option value="@sale.Id">Sale @sale.Id - @sale.SaleDate.ToShortDateString()</option>
+            }
+        </InputSelect>
+    </div>
+    
+    <div class="form-group">
+        <label for="product">Product:</label>
+        <InputSelect id="product" class="form-control" @bind-Value="saleDetailModel.ProductId">
+            <option value="">Select a product</option>
+            @foreach (var product in products)
+            {
+                <option value="@product.Id">@product.Name</option>
+            }
+        </InputSelect>
+    </div>
+    
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <InputNumber id="quantity" class="form-control" @bind-Value="saleDetailModel.Quantity" />
+    </div>
+    
+    <div class="form-group">
+        <label for="unitprice">Unit Price:</label>
+        <InputNumber id="unitprice" class="form-control" @bind-Value="saleDetailModel.UnitPrice" />
+    </div>
+    
+    <div class="form-group">
+        <label for="subtotal">Subtotal:</label>
+        <InputNumber id="subtotal" class="form-control" @bind-Value="saleDetailModel.Subtotal" />
+    </div>
+
+    <button type="submit" class="btn btn-success">@(isEditing ? "Update" : "Add")</button>
+    @if (isEditing)
+    {
+        <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+    }
+</EditForm>
+
+@code {
+    private List<SaleDetailDto>? saleDetails;
+    private List<SaleDto> sales = new();
+    private List<ProductDto> products = new();
+    private SaleDetailDto saleDetailModel = new();
+    private bool isEditing = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        sales = await SaleService.GetAllAsync();
+        products = await ProductService.GetAllAsync();
+        saleDetails = await SaleDetailService.GetAllAsync();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (isEditing)
+        {
+            await SaleDetailService.UpdateAsync(saleDetailModel);
+        }
+        else
+        {
+            await SaleDetailService.AddAsync(saleDetailModel);
+        }
+
+        saleDetailModel = new();
+        isEditing = false;
+        await LoadData();
+        StateHasChanged();
+    }
+
+    private void EditSaleDetail(SaleDetailDto detail)
+    {
+        saleDetailModel = new SaleDetailDto 
+        { 
+            Id = detail.Id, 
+            SaleId = detail.SaleId,
+            ProductId = detail.ProductId,
+            Quantity = detail.Quantity,
+            UnitPrice = detail.UnitPrice,
+            Subtotal = detail.Subtotal
+        };
+        isEditing = true;
+    }
+
+    private void CancelEdit()
+    {
+        saleDetailModel = new();
+        isEditing = false;
+    }
+
+    private async Task DeleteSaleDetail(int id)
+    {
+        await SaleDetailService.DeleteAsync(id);
+        await LoadData();
+        StateHasChanged();
+    }
+}

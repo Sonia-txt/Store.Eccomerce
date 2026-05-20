@@ -1,0 +1,137 @@
+@page "/customer"
+@using Store.Proyect.WebSite.Dtos
+@using Store.Proyect.WebSite.Services
+@using Store.Proyect.WebSite.Services.Interfaces
+@inject ICustomerService CustomerService
+
+<h3>Customers</h3>
+
+@if (customers == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in customers)
+            {
+                <tr>
+                    <td>@customer.Id</td>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.Phone</td>
+                    <td>@customer.Address</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditCustomer(customer)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteCustomer(customer.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3>@(isEditing ? "Edit Customer" : "Add New Customer")</h3>
+
+<EditForm Model="@customerModel" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText id="name" class="form-control" @bind-Value="customerModel.Name" />
+    </div>
+    
+    <div class="form-group">
+        <label for="email">Email:</label>
+        <InputText id="email" class="form-control" @bind-Value="customerModel.Email" />
+    </div>
+    
+    <div class="form-group">
+        <label for="phone">Phone:</label>
+        <InputText id="phone" class="form-control" @bind-Value="customerModel.Phone" />
+    </div>
+    
+    <div class="form-group">
+        <label for="address">Address:</label>
+        <InputText id="address" class="form-control" @bind-Value="customerModel.Address" />
+    </div>
+
+    <button type="submit" class="btn btn-success">@(isEditing ? "Update" : "Add")</button>
+    @if (isEditing)
+    {
+        <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+    }
+</EditForm>
+
+@code {
+    private List<CustomerDto>? customers;
+    private CustomerDto customerModel = new();
+    private bool isEditing = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    private async Task LoadData()
+    {
+        customers = await CustomerService.GetAllAsync();
+    }
+
+    private async Task HandleSubmit()
+    {
+        if (isEditing)
+        {
+            await CustomerService.UpdateAsync(customerModel);
+        }
+        else
+        {
+            await CustomerService.AddAsync(customerModel);
+        }
+
+        customerModel = new();
+        isEditing = false;
+        await LoadData();
+        StateHasChanged();
+    }
+
+    private void EditCustomer(CustomerDto customer)
+    {
+        customerModel = new CustomerDto 
+        { 
+            Id = customer.Id, 
+            Name = customer.Name,
+            Email = customer.Email,
+            Phone = customer.Phone,
+            Address = customer.Address
+        };
+        isEditing = true;
+    }
+
+    private void CancelEdit()
+    {
+        customerModel = new();
+        isEditing = false;
+    }
+
+    private async Task DeleteCustomer(int id)
+    {
+        await CustomerService.DeleteAsync(id);
+        await LoadData();
+        StateHasChanged();
+    }
+}
