@@ -9,13 +9,22 @@ using ProductRepository = Store.Proyect.Api.Repositories.ProductRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. Configurar la política de CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirTodo", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddScoped<IDbContext, StoreDbContext>();
-
 
 builder.Services.AddScoped<IDbConnection>(sp => 
 {
@@ -25,7 +34,6 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ISaleRepository, SaleRepository>();
@@ -44,10 +52,10 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseCors("PermitirTodo");
+
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();
