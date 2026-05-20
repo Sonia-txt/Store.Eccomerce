@@ -15,12 +15,15 @@ public class ProductCategoryService : IProductCategoryService
 
     public async Task<IEnumerable<CategoryDto>> GetAllAsync()
     {
-        return await _httpClient.GetFromJsonAsync<IEnumerable<CategoryDto>>("api/Category");
+        // Cambiado para leer directamente el array enviado por tu CategoryController
+        var categories = await _httpClient.GetFromJsonAsync<IEnumerable<CategoryDto>>("api/Category");
+        return categories ?? new List<CategoryDto>();
     }
 
     public async Task<CategoryDto> GetByIdAsync(int id)
     {
-        return await _httpClient.GetFromJsonAsync<CategoryDto>($"api/Category/{id}");
+        var category = await _httpClient.GetFromJsonAsync<CategoryDto>($"api/Category/{id}");
+        return category;
     }
 
     public async Task<CategoryDto> AddAsync(CategoryDto category)
