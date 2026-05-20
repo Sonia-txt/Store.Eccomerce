@@ -1,30 +1,70 @@
 {
   "version": 3,
   "targets": {
-    "net10.0": {}
+    "net10.0": {
+      "Microsoft.AspNetCore.App.Internal.Assets/10.0.2": {
+        "type": "package",
+        "build": {
+          "build/Microsoft.AspNetCore.App.Internal.Assets.props": {},
+          "buildTransitive/Microsoft.AspNetCore.App.Internal.Assets.targets": {}
+        },
+        "buildMultiTargeting": {
+          "buildMultiTargeting/Microsoft.AspNetCore.App.Internal.Assets.targets": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Microsoft.AspNetCore.App.Internal.Assets/10.0.2": {
+      "sha512": "fMAqrUm+aspxRAsCJ6Hlgs96XSHwNIr9HBNt7wyBAzQkPlfE7w+0C4NzDoJnso5YZyDI0VcRtEXxG9odt3KiZA==",
+      "type": "package",
+      "path": "microsoft.aspnetcore.app.internal.assets/10.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "_framework/blazor.server.js",
+        "_framework/blazor.server.js.map",
+        "_framework/blazor.web.js",
+        "_framework/blazor.web.js.map",
+        "_framework/blazor.webassembly.js",
+        "_framework/blazor.webassembly.js.map",
+        "build/Microsoft.AspNetCore.App.Internal.Assets.props",
+        "build/Microsoft.AspNetCore.App.Internal.Assets.targets",
+        "buildMultiTargeting/Microsoft.AspNetCore.App.Internal.Assets.targets",
+        "buildTransitive/Microsoft.AspNetCore.App.Internal.Assets.targets",
+        "microsoft.aspnetcore.app.internal.assets.10.0.2.nupkg.sha512",
+        "microsoft.aspnetcore.app.internal.assets.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net10.0": []
+    "net10.0": [
+      "Microsoft.AspNetCore.App.Internal.Assets >= 10.0.2"
+    ]
   },
   "packageFolders": {
-    "C:\\Users\\sonia\\.nuget\\packages\\": {},
+    "C:\\Users\\marib\\.nuget\\packages\\": {},
+    "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.WebSite\\Store.Proyect.WebSite.csproj",
+      "projectUniqueName": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.WebSite\\Store.Proyect.WebSite.csproj",
       "projectName": "Store.Proyect.WebSite",
-      "projectPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.WebSite\\Store.Proyect.WebSite.csproj",
-      "packagesPath": "C:\\Users\\sonia\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\sonia\\RiderProjects\\Store.Eccomerce\\Store.Proyect.WebSite\\obj\\",
+      "projectPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.WebSite\\Store.Proyect.WebSite.csproj",
+      "packagesPath": "C:\\Users\\marib\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\marib\\RiderProjects\\Store.Proyect\\Store.Proyect.WebSite\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\sonia\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\marib\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,6 +73,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -51,11 +92,19 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net10.0": {
         "targetAlias": "net10.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.App.Internal.Assets": {
+            "suppressParent": "All",
+            "target": "Package",
+            "version": "[10.0.2, )",
+            "autoReferenced": true
+          }
+        },
         "imports": [
           "net461",
           "net462",
@@ -75,7 +124,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.AspNetCore": "(,10.0.32767]",
           "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
